@@ -17,10 +17,11 @@ services:
     build: ./nginx
     depends_on:
       - php
+      - slim
     ports:
       - "80:80"
     volumes:
-      - ./nginx/public:/var/www/html
+      - ./nginx/public:/var/www/public
     networks:
        - web
   php:
@@ -28,11 +29,23 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./php/v1/public:/var/www/html
+      - ./php/v1/public:/var/www/public
     networks:
        - web
     env_file:
       - ./php/v1/.env
+  slim:
+    build: ./php/v2
+    environment:
+      docker: "true"
+    networks:
+      - web
+    ports:
+      - 8080:8080
+    env_file:
+      - ./php/v2/.env
+    volumes:
+       - ./php/v2/sample:/var/www
 networks:
   web:
     driver: bridge

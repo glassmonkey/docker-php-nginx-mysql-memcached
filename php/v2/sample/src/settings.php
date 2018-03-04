@@ -8,7 +8,13 @@ return [
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',
         ],
-
+        'db' => [
+        'host' => $_ENV['DATABASE_HOST'],
+        'port' => $_ENV['DATABASE_PORT'],
+        'user' => $_ENV['DATABASE_USER'],
+        'pass' => $_ENV['DATABASE_PASS'],
+        'dbname' => $_ENV['DATABASE_NAME'],
+        ],
         // Monolog settings
         'logger' => [
             'name' => 'slim-app',

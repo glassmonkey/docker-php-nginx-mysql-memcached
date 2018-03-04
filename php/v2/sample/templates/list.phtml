@@ -1,0 +1,27 @@
+<table class="pure-table">
+  <tr>
+    <th>name</th>
+    <th>date</th>
+  </tr>
+<?php foreach($data['list'] as $test): ?>
+  <tr>
+    <td><?=$test['hoge_id'] ?></td>
+    <td><?=$test['created_at'] ?></td>
+  </tr>
+<?php endforeach; ?>
+</table>
+
+<?php if (isset($flash['error'])): ?>
+    <div class="alert alert-danger"><?= $flash['error'] ?></div>
+<?php endif; ?>
+<form method="post" action="commit">
+    <div class="form-group <?php if (isset($errors['title'])): ?>has-error<?php endif; ?>">
+        <label class="control-label" for="title">id</label>
+        <input type="text" name="id" class="form-control" id="title" value="<?php if (isset($params['id'])) { echo $params['id']; } ?>" />
+        <?php if(isset($errors['id'])): ?>
+            <div class="text-danger"><?= $errors['id'] ?></div>
+        <?php endif; ?>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">登録</button>
+
+</form

@@ -1,2 +1,1 @@
-<?php
-hello world
+hello php world
