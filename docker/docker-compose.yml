@@ -20,25 +20,21 @@ services:
     volumes_from:
       - data
     volumes:
-      - ../application/initial.sql:/docker-entrypoint-initdb.d/initial.sql
-    container_name: mysql
+      - ./mysql/initial.sql:/docker-entrypoint-initdb.d/initial.sql
 
   nginx:
     build: ./nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ../:/var/www/html
+      - ./nginx/public:/var/www/html
     links:
-      - web
-    container_name: nginx
+      - php
 
-  web:
-    build: ./php-fpm71
-#    build: ./php-fpm56    <- if you want to use PHP5.6
+  php:
+    build: ./php
     volumes:
-      - ../:/var/www/html
+      - ./php/public:/var/www/html
     links:
       - mysql
     environment:
@@ -46,4 +42,3 @@ services:
       DATABASE_NAME: 'mysql_database'
       DATABASE_USER: 'mysql_user'
       DATABASE_PASSWORD: 'mysql_pw'
-    container_name: web
