@@ -24,15 +24,15 @@ services:
     networks:
        - web
   php:
-    build: ./php
+    build: ./php/v1
     depends_on:
       - mysql
     volumes:
-      - ./php/public:/var/www/html
+      - ./php/v1/public:/var/www/html
     networks:
        - web
     env_file:
-      - ./php/.env
+      - ./php/v1/.env
 networks:
   web:
     driver: bridge
