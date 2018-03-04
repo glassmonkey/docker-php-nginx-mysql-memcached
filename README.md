@@ -7,6 +7,7 @@ Docker Compose for PHP, nginx, PHP-FPM, MySQL, memcached development environment
 
 ## Description(Japanse)
 
+下記をforkしています。
 [【超簡単】Docker を使って1クリックでモダンな PHP 開発環境ができるようにする（PHP, MySQL, PHP-FPM, nginx, memcached）](http://koni.hateblo.jp/entry/2017/01/28/150522)
 
 ## Install
