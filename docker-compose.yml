@@ -4,7 +4,7 @@ services:
     build: ./nginx
     depends_on:
       - php
-#      - slim
+      - slim
     ports:
       - "80:80"
     volumes:
@@ -32,16 +32,14 @@ services:
        - web
     env_file:
       - ./php/.env
-#  slim:
-#    build: ./slim
-#    environment:
-#      docker: "true"
-#    networks:
-#      - web
-#    env_file:
-#      - ./slim/.env
-#    volumes:
-#       - ./slim/sample:/var/www
+  slim:
+    build: ./slim
+    networks:
+      - web
+    env_file:
+      - ./slim/.env
+    volumes:
+      - ./slim/sample:/var/www
 networks:
   web:
     driver: bridge
