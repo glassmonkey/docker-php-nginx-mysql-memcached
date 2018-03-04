@@ -1,9 +1,9 @@
 <?php
 
-echo "Hello! World!!!!!!<br>";
+echo "Hello! World!!<br>";
 
 $mysql = new mysqli($_ENV['DATABASE_HOST'], $_ENV['DATABASE_USER'],
-	$_ENV['DATABASE_PASSWORD'], $_ENV['DATABASE_NAME']);
+	$_ENV['DATABASE_PASS'], $_ENV['DATABASE_NAME']);
 
 if (!$mysql) {
 	echo "Error: Unable to connect to MySQL." . PHP_EOL;

@@ -1,44 +1,38 @@
-version: '2'
+version: '3.4'
 services:
   memcached:
     image: memcached:1.4
-
-  data:
-    image: busybox
-    volumes:
-      - ./misc/data:/var/lib/mysql
-
   mysql:
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysql_database
-      MYSQL_USER: mysql_user
-      MYSQL_PASSWORD: mysql_pw
+    env_file:
+      - ./mysql/.env
     ports:
-      - "13306:3306"
-    volumes_from:
-      - data
+      - "3306:3306"
     volumes:
+      - ./misc/data:/var/lib/mysql
       - ./mysql/initial.sql:/docker-entrypoint-initdb.d/initial.sql
-
+    networks:
+      - web
   nginx:
     build: ./nginx
+    depends_on:
+      - php
     ports:
       - "80:80"
     volumes:
       - ./nginx/public:/var/www/html
-    links:
-      - php
-
+    networks:
+       - web
   php:
     build: ./php
+    depends_on:
+      - mysql
     volumes:
       - ./php/public:/var/www/html
-    links:
-      - mysql
-    environment:
-      DATABASE_HOST: 'mysql'
-      DATABASE_NAME: 'mysql_database'
-      DATABASE_USER: 'mysql_user'
-      DATABASE_PASSWORD: 'mysql_pw'
+    networks:
+       - web
+    env_file:
+      - ./php/.env
+networks:
+  web:
+    driver: bridge
