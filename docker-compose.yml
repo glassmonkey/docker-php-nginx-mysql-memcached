@@ -1,7 +1,16 @@
 version: '3.4'
 services:
-  memcached:
-    image: memcached:1.4
+  nginx:
+    build: ./nginx
+    depends_on:
+      - php
+#      - slim
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/public:/var/www/public
+    networks:
+       - web
   mysql:
     image: mysql:5.7
     env_file:
@@ -13,39 +22,26 @@ services:
       - ./mysql/initial.sql:/docker-entrypoint-initdb.d/initial.sql
     networks:
       - web
-  nginx:
-    build: ./nginx
-    depends_on:
-      - php
-      - slim
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/public:/var/www/public
-    networks:
-       - web
   php:
-    build: ./php/v1
+    build: ./php/
     depends_on:
       - mysql
     volumes:
-      - ./php/v1/public:/var/www/public
+      - ./php/public:/var/www/public
     networks:
        - web
     env_file:
-      - ./php/v1/.env
-  slim:
-    build: ./php/v2
-    environment:
-      docker: "true"
-    networks:
-      - web
-    ports:
-      - 8080:8080
-    env_file:
-      - ./php/v2/.env
-    volumes:
-       - ./php/v2/sample:/var/www
+      - ./php/.env
+#  slim:
+#    build: ./slim
+#    environment:
+#      docker: "true"
+#    networks:
+#      - web
+#    env_file:
+#      - ./slim/.env
+#    volumes:
+#       - ./slim/sample:/var/www
 networks:
   web:
     driver: bridge
