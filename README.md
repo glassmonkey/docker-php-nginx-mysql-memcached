@@ -3,18 +3,20 @@ docker-php-nginx-mysql-memcached
 
 ## Overview
 
-Docker Compose for PHP, nginx, PHP-FPM, MySQL, memcached development environment.
+php + nginx + mysql環境の docker-compose のサンプルです。
 
 ## Description(Japanse)
 
-下記をforkしています。
+下記をベースにつくりました
 [【超簡単】Docker を使って1クリックでモダンな PHP 開発環境ができるようにする（PHP, MySQL, PHP-FPM, nginx, memcached）](http://koni.hateblo.jp/entry/2017/01/28/150522)
 
-## Install
+
+
+## インストール
 
 Install Docker for Mac.
 
-[Docker for Mac](https://docs.docker.com/docker-for-mac/)
+[Docker forMac](https://docs.docker.com/docker-for-mac/)
 
 Clone this repository.
 
@@ -22,31 +24,47 @@ Clone this repository.
 $ git clone git@github.com:koni/docker-php-nginx-mysql-memcached.git
 ```
 
+## ファイル全般
+### ディレクトリ構成
+基本的にコンテナごとにディレクトリをきっています。  
+特筆すること
+root/  
+    ├ misc/data: 永続化データ保存用  
+    ├ mysql: mysql用コンテナ  
+    │  └ initial.sql:  DB初期化用sql。この[シェル](https://github.com/docker-library/mysql/blob/master/5.7/docker-entrypoint.sh)が動きます。  
+    ├ nginx: nginx用コンテナ  
+    ├ php:   サンプルphp用コンテナ(simple php)  
+    └ slim:   サンプルphp用コンテナ(framework php)  
+       └ sample:  slim用プロジェクト  
+### ファイルについて
+基本的には各ミドルウェアや言語に必要なファイルを置いておく。
+実際の実行パスはDockerfileかcomposeに記述しておく。以下のファイルは極力コンテナ単位で作っておくと良いと思われる。
+* .env:  与える環境変数。系を記述。基本はgit管理しないように
+* Dockerfile:  コンテナのビルドを記述する
+
+
 ## Usage
 
 Up:
 
 ```bash
-$ cd docker-php-nginx-mysql-memcached/docker
+$ cd $PROJECT_HOME
 $ docker-compose up
 ```
 
 Stop:
 
 ```bash
-$ docker-compose stop
+$ cd $PROJECT_HOME
+$ docker-compose down
 ```
 
-## Switch PHP Version 5.6
-
-You can switch PHP version 5.6.
-
-If you want to use PHP 5.6, write below on `docker-compose.yml`.
-
-```diff
-<    build: ./php-fpm71
->    build: ./php-fpm56
+run (nginx only)
 ```
+$ cd $PROJECT_HOME/nginx
+$ docker run -p "80:80" -v "$PWD/public:/usr/share/nginx/html" --name sample_nginx_default -d nginx
+```
+
 
 ## License
 
@@ -54,5 +72,4 @@ This software is released under the MIT License, see [LICENSE](https://github.co
 
 ## Author
 
-[koni](https://github.com/koni)
-
+[koni](https://github.com/glassmonenkey)
