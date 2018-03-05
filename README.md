@@ -7,7 +7,7 @@ php + nginx + mysql環境の docker-compose のサンプルです。
 
 ## Description(Japanse)
 
-下記をベースにつくりました
+下記をベースにつくりました  
 [【超簡単】Docker を使って1クリックでモダンな PHP 開発環境ができるようにする（PHP, MySQL, PHP-FPM, nginx, memcached）](http://koni.hateblo.jp/entry/2017/01/28/150522)
 
 
@@ -72,4 +72,4 @@ This software is released under the MIT License, see [LICENSE](https://github.co
 
 ## Author
 
-[koni](https://github.com/glassmonenkey)
+[shunsuke](https://github.excite.ad.jp/shunsuke-nagano/)
