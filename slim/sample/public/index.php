@@ -9,7 +9,7 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+require realpath('../../vendor/autoload.php');
 
 session_start();
 

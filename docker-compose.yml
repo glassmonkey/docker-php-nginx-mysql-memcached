@@ -41,7 +41,7 @@ services:
     env_file:
       - ./slim/.env
     volumes:
-      - ./slim/sample:/var/www
+      - ./slim/sample:/var/www/html
 networks:
   web:
     driver: bridge
