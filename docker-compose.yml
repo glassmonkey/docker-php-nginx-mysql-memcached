@@ -3,7 +3,7 @@ services:
   nginx:
     build: ./nginx
     depends_on:
-      - php
+      #- php
       - slim
     ports:
       - "80:80"
